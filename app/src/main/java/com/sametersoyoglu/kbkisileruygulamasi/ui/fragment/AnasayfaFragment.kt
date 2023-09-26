@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -23,18 +24,16 @@ class AnasayfaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAnasayfaBinding.inflate(inflater,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_anasayfa,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarAnasayfa.title = "Kişiler"
+        binding.anasayfaFragment = this
+        binding.anasayfaToolbarBaslik = "Kişiler"
 
-        binding.fab.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.kisiKayitGecis)
-        }
 
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener{
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -51,7 +50,7 @@ class AnasayfaFragment : Fragment() {
         })
 
         // recyclerView tanımlama
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        //binding.recyclerView.layoutManager = LinearLayoutManager(requireContext()) -- bu kodlamayı xml de recyclerview içerisinde basitçe yaptık.
         //binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL) // yanyana gözükme
 
         val kisilerListesi = ArrayList<Kisiler>()
@@ -66,9 +65,13 @@ class AnasayfaFragment : Fragment() {
 
         // adapter tanımlama - nesne oluşturma
         val kisilerAdapter = KisilerAdapter(requireContext(),kisilerListesi)
-        binding.recyclerView.adapter = kisilerAdapter // adapterı recyclerView'e aktarma-görüntülemeyi sağlar
+        binding.kisilerAdapter = kisilerAdapter // adapterı recyclerView'e aktarma-görüntülemeyi sağlar
 
 
+    }
+
+    fun fabTikla(it: View) {
+        Navigation.findNavController(it).navigate(R.id.kisiKayitGecis)
     }
 
     fun ara (aramaKelimesi : String) {
