@@ -52,13 +52,13 @@ class AnasayfaFragment : Fragment() {
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener{
             override fun onQueryTextChange(newText: String?): Boolean {
                 // harf girdikçe harf sildikçe sonuç getiren fonksiyon
-                ara(newText!!)
+                viewModel.ara(newText!!)
                 return true
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 // arama iconuna bastığımız zaman arama yapar arama yap dediğimiz zaman.
-                ara(query)
+                viewModel.ara(query)
                 return true
             }
         })
@@ -96,8 +96,10 @@ class AnasayfaFragment : Fragment() {
         Navigation.findNavController(it).navigate(R.id.kisiKayitGecis)
     }
 
-    fun ara (aramaKelimesi : String) {
-        Log.e("Kişi Ara",aramaKelimesi)
+    // kaydetme güncelleme gibi işlemleri yaptıktan sonra anasayfaya dönünce verilerin güncellenmesi en son hale gelmesi için kişileri yükleriz.
+    override fun onResume() {
+        super.onResume()
+        viewModel.kisileriYukle()
     }
 
 }

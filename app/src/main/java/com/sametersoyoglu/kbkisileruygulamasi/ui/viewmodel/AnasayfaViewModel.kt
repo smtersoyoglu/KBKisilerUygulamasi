@@ -23,6 +23,8 @@ class AnasayfaViewModel : ViewModel() {
     fun sil(kisi_id : Int) {
         CoroutineScope(Dispatchers.Main).launch {
             kisilerRepository.sil(kisi_id)
+            // silme işleminden sonra anasayfada yani recyclerview de silinen kişinin görünmemesi için verileri tekrar yükleriz en son güncel halde tekrar alırız verileri.
+            kisileriYukle()
         }
     }
 
@@ -31,6 +33,15 @@ class AnasayfaViewModel : ViewModel() {
             // bu çalıştığı anda içerisinde veritabanından gelen kişiler olucak LiveData kullanarak yapıyoruz.
             kisilerListesi.value = kisilerRepository.kisileriYukle()
         }
+    }
+
+    fun ara (aramaKelimesi : String) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            // bu çalıştığı anda içerisinde veritabanından gelen kişiler olucak LiveData kullanarak yapıyoruz.Arama için verileri getirir.
+            kisilerListesi.value = kisilerRepository.ara(aramaKelimesi)
+        }
+
     }
 
 }
