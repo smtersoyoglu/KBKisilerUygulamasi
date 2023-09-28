@@ -7,12 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import com.sametersoyoglu.kbkisileruygulamasi.R
 import com.sametersoyoglu.kbkisileruygulamasi.databinding.FragmentKisiKayitBinding
+import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.KisiKayitViewModel
 
 class KisiKayitFragment : Fragment() {
 
     private lateinit var binding: FragmentKisiKayitBinding
+    private lateinit var viewModel: KisiKayitViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // ViewModeli bağlama - onCreate içersinde olur bu işlem
+        val tempViewModel : KisiKayitViewModel by viewModels() // gecici bir viewmodele atayıp ordan bizim viewmodelimize bağlarız.
+        viewModel = tempViewModel
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +43,6 @@ class KisiKayitFragment : Fragment() {
     }
 
     fun buttonKaydet(kisi_ad : String, kisi_tel :String) {
-        Log.e("Kişi Kyadet","$kisi_ad - $kisi_tel")
+        viewModel.kaydet(kisi_ad,kisi_tel)
     }
 }

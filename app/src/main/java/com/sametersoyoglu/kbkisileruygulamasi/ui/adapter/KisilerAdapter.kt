@@ -12,8 +12,9 @@ import com.sametersoyoglu.kbkisileruygulamasi.R
 import com.sametersoyoglu.kbkisileruygulamasi.data.entity.Kisiler
 import com.sametersoyoglu.kbkisileruygulamasi.databinding.CardTasarimBinding
 import com.sametersoyoglu.kbkisileruygulamasi.ui.fragment.AnasayfaFragmentDirections
+import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.AnasayfaViewModel
 
-class KisilerAdapter (var mContext: Context, var kisilerListesi : List<Kisiler>) : RecyclerView.Adapter<KisilerAdapter.CardTasarimTutucu> () {
+class KisilerAdapter (var mContext: Context, var kisilerListesi : List<Kisiler> , var viewModel:AnasayfaViewModel) : RecyclerView.Adapter<KisilerAdapter.CardTasarimTutucu> () {
 
     inner class  CardTasarimTutucu( var tasarim : CardTasarimBinding) : RecyclerView.ViewHolder(tasarim.root)
 
@@ -38,10 +39,11 @@ class KisilerAdapter (var mContext: Context, var kisilerListesi : List<Kisiler>)
 
         }
 
+        // veritabanlarında silme id ile olur id sine göre sileriz.
         t.imageViewSil.setOnClickListener {
             Snackbar.make(it,"${kisi.kisi_ad} silinsin mi?",Snackbar.LENGTH_SHORT)
                 .setAction("EVET") {
-                    sil(kisi.kisi_id)
+                    viewModel.sil(kisi.kisi_id)
                 }.show()
         }
 
@@ -51,8 +53,4 @@ class KisilerAdapter (var mContext: Context, var kisilerListesi : List<Kisiler>)
         return kisilerListesi.size
     }
 
-    // veritabanlarında silme id ile olur id sine göre sileriz.
-    fun sil(kisi_id : Int) {
-        Log.e("Kişi Sil",kisi_id.toString())
-    }
 }

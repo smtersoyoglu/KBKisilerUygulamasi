@@ -7,13 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.sametersoyoglu.kbkisileruygulamasi.R
 import com.sametersoyoglu.kbkisileruygulamasi.databinding.FragmentKisiDetayBinding
+import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.KisiDetayViewModel
+import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.KisiKayitViewModel
 
 class KisiDetayFragment : Fragment() {
 
     private lateinit var binding: FragmentKisiDetayBinding
+    private lateinit var viewModel: KisiDetayViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,6 +26,12 @@ class KisiDetayFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // ViewModeli bağlama - onCreate içersinde olur bu işlem
+        val tempViewModel : KisiDetayViewModel by viewModels() // gecici bir viewmodele atayıp ordan bizim viewmodelimize bağlarız.
+        viewModel = tempViewModel
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // xml de  yaptığımız databinding nesnesi bunu tanımlayarak buttonGuncellede ki işlemleri yapmamıza yarar.
@@ -39,7 +49,7 @@ class KisiDetayFragment : Fragment() {
 
     // kayit eklemede ad ile tel bize yeterli olurken güncellemede id de almamız lazım ek olarak.
     fun buttonGuncelle (kisi_id : Int,kisi_ad : String, kisi_tel :String) {
-        Log.e("Kişi Güncelle","$kisi_id - $kisi_ad - $kisi_tel")
+        viewModel.guncelle(kisi_id,kisi_ad,kisi_tel)
     }
 
 }

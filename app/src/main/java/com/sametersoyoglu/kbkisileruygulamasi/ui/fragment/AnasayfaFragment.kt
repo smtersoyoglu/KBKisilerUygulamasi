@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -15,11 +16,22 @@ import com.sametersoyoglu.kbkisileruygulamasi.R
 import com.sametersoyoglu.kbkisileruygulamasi.data.entity.Kisiler
 import com.sametersoyoglu.kbkisileruygulamasi.databinding.FragmentAnasayfaBinding
 import com.sametersoyoglu.kbkisileruygulamasi.ui.adapter.KisilerAdapter
+import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.AnasayfaViewModel
+import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.KisiKayitViewModel
 
 
 class AnasayfaFragment : Fragment() {
 
     private lateinit var binding: FragmentAnasayfaBinding
+    private lateinit var viewModel: AnasayfaViewModel // ViewModeli tanımlama
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // ViewModeli bağlama - onCreate içersinde olur bu işlem
+        val tempViewModel : AnasayfaViewModel by viewModels() // gecici bir viewmodele atayıp ordan bizim viewmodelimize bağlarız.
+        viewModel = tempViewModel
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +45,8 @@ class AnasayfaFragment : Fragment() {
 
         binding.anasayfaFragment = this
         binding.anasayfaToolbarBaslik = "Kişiler"
+
+
 
 
         binding.searchView.setOnQueryTextListener(object : OnQueryTextListener{
@@ -53,6 +67,7 @@ class AnasayfaFragment : Fragment() {
         //binding.recyclerView.layoutManager = LinearLayoutManager(requireContext()) -- bu kodlamayı xml de recyclerview içerisinde basitçe yaptık.
         //binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL) // yanyana gözükme
 
+        /* bu işlemi LiveData kullanarak DataSource'ta yapıyoruz.
         val kisilerListesi = ArrayList<Kisiler>()
         val k1 = Kisiler(1,"Ahmet","1111")
         val k2 = Kisiler(2,"Zeynep","2222")
@@ -62,10 +77,17 @@ class AnasayfaFragment : Fragment() {
         kisilerListesi.add(k2)
         kisilerListesi.add(k3)
         kisilerListesi.add(k4)
+         */
 
-        // adapter tanımlama - nesne oluşturma
-        val kisilerAdapter = KisilerAdapter(requireContext(),kisilerListesi)
-        binding.kisilerAdapter = kisilerAdapter // adapterı recyclerView'e aktarma-görüntülemeyi sağlar
+        //LiveData yapısını kurduk - fragmentta olduğumuz için viewLifecycleOwner deriz
+        viewModel.kisilerListesi.observe(viewLifecycleOwner) {
+            // artık veri yükleme işlemini bunun içine aktardık.
+            // adapter tanımlama - nesne oluşturma
+            val kisilerAdapter = KisilerAdapter(requireContext(),it,viewModel)
+            binding.kisilerAdapter = kisilerAdapter // adapterı recyclerView'e aktarma-görüntülemeyi sağlar
+
+        }
+
 
 
     }
