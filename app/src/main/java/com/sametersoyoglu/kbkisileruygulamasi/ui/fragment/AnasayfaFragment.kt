@@ -18,6 +18,7 @@ import com.sametersoyoglu.kbkisileruygulamasi.databinding.FragmentAnasayfaBindin
 import com.sametersoyoglu.kbkisileruygulamasi.ui.adapter.KisilerAdapter
 import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.AnasayfaViewModel
 import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.KisiKayitViewModel
+import com.sametersoyoglu.kbkisileruygulamasi.util.gecisYap
 
 
 class AnasayfaFragment : Fragment() {
@@ -93,7 +94,7 @@ class AnasayfaFragment : Fragment() {
     }
 
     fun fabTikla(it: View) {
-        Navigation.findNavController(it).navigate(R.id.kisiKayitGecis)
+        Navigation.gecisYap(it,R.id.kisiKayitGecis)
     }
 
     // kaydetme güncelleme gibi işlemleri yaptıktan sonra anasayfaya dönünce verilerin güncellenmesi en son hale gelmesi için kişileri yükleriz.

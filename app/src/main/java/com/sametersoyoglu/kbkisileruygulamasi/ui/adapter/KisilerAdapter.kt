@@ -13,6 +13,7 @@ import com.sametersoyoglu.kbkisileruygulamasi.data.entity.Kisiler
 import com.sametersoyoglu.kbkisileruygulamasi.databinding.CardTasarimBinding
 import com.sametersoyoglu.kbkisileruygulamasi.ui.fragment.AnasayfaFragmentDirections
 import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.AnasayfaViewModel
+import com.sametersoyoglu.kbkisileruygulamasi.util.gecisYap
 
 class KisilerAdapter (var mContext: Context, var kisilerListesi : List<Kisiler> , var viewModel:AnasayfaViewModel) : RecyclerView.Adapter<KisilerAdapter.CardTasarimTutucu> () {
 
@@ -35,7 +36,8 @@ class KisilerAdapter (var mContext: Context, var kisilerListesi : List<Kisiler> 
 
         t.cardViewSatir.setOnClickListener {
             val gecis = AnasayfaFragmentDirections.kisiDetayGecis(kisi = kisi)
-            Navigation.findNavController(it).navigate(gecis)
+            //Navigation.findNavController(it).navigate(gecis) // Extensions da yaptık bu işlemi fonksiyon açarak.
+            Navigation.gecisYap(it,gecis)
 
         }
 
@@ -46,7 +48,6 @@ class KisilerAdapter (var mContext: Context, var kisilerListesi : List<Kisiler> 
                     viewModel.sil(kisi.kisi_id)
                 }.show()
         }
-
     }
 
     override fun getItemCount(): Int {
