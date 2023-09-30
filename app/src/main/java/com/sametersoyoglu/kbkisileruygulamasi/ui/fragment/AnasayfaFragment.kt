@@ -19,8 +19,9 @@ import com.sametersoyoglu.kbkisileruygulamasi.ui.adapter.KisilerAdapter
 import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.AnasayfaViewModel
 import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.KisiKayitViewModel
 import com.sametersoyoglu.kbkisileruygulamasi.util.gecisYap
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AnasayfaFragment : Fragment() {
 
     private lateinit var binding: FragmentAnasayfaBinding
