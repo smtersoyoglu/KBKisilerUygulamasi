@@ -28,4 +28,8 @@ interface KisilerDao {
    // veritabanından silme işlemi
    @Delete
    suspend fun sil(kisi: Kisiler)
+
+   // Veritabanında Arama işlemi
+   @Query("SELECT * FROM kisiler WHERE kisi_ad like '½' || :aramaKelimesi || '½'") // aramaKelimesini sorgumuza aktarmak bu şekilde oluyor.
+   suspend fun ara (aramaKelimesi : String) : List<Kisiler>
 }

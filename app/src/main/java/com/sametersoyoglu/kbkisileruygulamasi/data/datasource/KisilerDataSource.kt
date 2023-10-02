@@ -17,13 +17,9 @@ class KisilerDataSource(var kisilerDao: KisilerDao) {
 
     suspend fun ara (aramaKelimesi : String) : List<Kisiler> =
         withContext(Dispatchers.IO) {
-            val kisilerListesi = ArrayList<Kisiler>()
-            val k1 = Kisiler(1,"Ahmet","1111")
-            kisilerListesi.add(k1)
-            return@withContext kisilerListesi
+            // uygulamamızda arama işlemini bu şekilde yaparız harf hece ve kelimeye göre
+            return@withContext kisilerDao.ara(aramaKelimesi)
         }
-
-
 
 
     // KisiKayitFragment ında ki butona basınca kaydet işlemini burda da tanımlıyoruz suspend şeklinde coroutine kullanacağımız için geri dönüş olmadığı için return de olmaz.
