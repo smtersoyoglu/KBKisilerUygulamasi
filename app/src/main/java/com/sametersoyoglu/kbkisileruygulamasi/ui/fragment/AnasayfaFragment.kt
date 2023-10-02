@@ -101,7 +101,7 @@ class AnasayfaFragment : Fragment() {
     // kaydetme güncelleme gibi işlemleri yaptıktan sonra anasayfaya dönünce verilerin güncellenmesi en son hale gelmesi için kişileri yükleriz.
     override fun onResume() {
         super.onResume()
-        viewModel.kisileriYukle()
+        viewModel.kisileriYukle() // bu kod sayesinde fab butona tıklayıp kişi kaydetme yaptıktan sonra anasayfaya döndüğümüzde kaydettiğimiz veriyi görürüz.
     }
 
 }

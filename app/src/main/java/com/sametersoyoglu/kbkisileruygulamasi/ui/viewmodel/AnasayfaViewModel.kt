@@ -27,7 +27,7 @@ class AnasayfaViewModel @Inject constructor(var kisilerRepository: KisilerReposi
         CoroutineScope(Dispatchers.Main).launch {
             kisilerRepository.sil(kisi_id)
             // silme işleminden sonra anasayfada yani recyclerview de silinen kişinin görünmemesi için verileri tekrar yükleriz en son güncel halde tekrar alırız verileri.
-            kisileriYukle()
+            kisileriYukle() // bunun sayesinde uygulamamızda istediğimiz kişiyi sildiğimiz zaman sildikten sonra anlık olarak arayüzden kaybolmasını sağlar. arayüze anlık olarak yeri verileri getirmeye yarar.
         }
     }
 

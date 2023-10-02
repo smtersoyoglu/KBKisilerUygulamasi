@@ -2,6 +2,7 @@ package com.sametersoyoglu.kbkisileruygulamasi.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.Update
 import com.sametersoyoglu.kbkisileruygulamasi.data.entity.Kisiler
 
 // Kisiler::class kısmına kaç tane tablomuz varsa o kadar yazmalıyız 10 tane tablomuz varsa 10 tane tablomuzu da böyle yazmalıyız buraya.
@@ -13,4 +14,6 @@ abstract class Veritabani : RoomDatabase() {
 
     // KisilerDao interface'ine erişmek için fonksiyon tanımladık
     abstract fun getKisilerDao() : KisilerDao
+
+
 }

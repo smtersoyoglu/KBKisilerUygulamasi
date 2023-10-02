@@ -28,16 +28,19 @@ class KisilerDataSource(var kisilerDao: KisilerDao) {
 
     // KisiKayitFragment ında ki butona basınca kaydet işlemini burda da tanımlıyoruz suspend şeklinde coroutine kullanacağımız için geri dönüş olmadığı için return de olmaz.
     suspend fun kaydet(kisi_ad : String, kisi_tel :String) {
-        Log.e("Kişi Kyadet","$kisi_ad - $kisi_tel")
+        val yeniKisi = Kisiler(0,kisi_ad,kisi_tel) // id 0 gireriz bir etkisi yok.
+        kisilerDao.kaydet(yeniKisi)
     }
 
     // KisiDetay Güncellemeyi datasource ta yapıp bağlantı kura kura fragment'a gidicez.
     suspend fun guncelle (kisi_id : Int,kisi_ad : String, kisi_tel :String) {
-        Log.e("Kişi Güncelle","$kisi_id - $kisi_ad - $kisi_tel")
+        val guncellenenKisi = Kisiler(kisi_id,kisi_ad,kisi_tel) // id belirtmemiz lazım id ye göre güncelleme yapağımız için.
+        kisilerDao.guncelle(guncellenenKisi)
     }
 
     // adapterda yaptığımız silme işlemini datasource a da yapıcaz.
     suspend fun sil(kisi_id : Int) {
-        Log.e("Kişi Sil",kisi_id.toString())
+        val silinenKisi = Kisiler(kisi_id,"","") // silme için sadece id ye ihtiyaç var. ad ve tel'i boş geçiyoruz.
+        kisilerDao.sil(silinenKisi)
     }
 }

@@ -1,7 +1,10 @@
 package com.sametersoyoglu.kbkisileruygulamasi.room
 
 import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.sametersoyoglu.kbkisileruygulamasi.data.entity.Kisiler
 
 
@@ -14,6 +17,15 @@ interface KisilerDao {
    suspend fun kisileriYukle(): List<Kisiler>
     // kisiler tablomuzda ki,veritabanımızdaki bütün bilgileri(tüm verileri) almak için sorgu oluşturduk.
 
+   // veritabanına ekleme kodu  Insert ile de kayıt yapıcak diyoruz
+   @Insert
+   suspend fun kaydet(kisi: Kisiler)
 
+   // veritabanında güncelleme işlemini yapma
+   @Update
+   suspend fun guncelle(kisi:Kisiler)
 
+   // veritabanından silme işlemi
+   @Delete
+   suspend fun sil(kisi: Kisiler)
 }
