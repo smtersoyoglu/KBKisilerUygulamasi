@@ -4,13 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sametersoyoglu.kbkisileruygulamasi.data.entity.Kisiler
 import com.sametersoyoglu.kbkisileruygulamasi.data.repo.KisilerRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AnasayfaViewModel : ViewModel() {
+@HiltViewModel
+class AnasayfaViewModel @Inject constructor(var kisilerRepository: KisilerRepository): ViewModel() {
 
-    var kisilerRepository = KisilerRepository()
+    //var kisilerRepository = KisilerRepository() bu bağımlılığı hilt kullanarak dışardan alırız.
     var kisilerListesi = MutableLiveData<List<Kisiler>>()
 
 
