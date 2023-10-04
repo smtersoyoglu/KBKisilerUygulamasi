@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.sametersoyoglu.kbkisileruygulamasi.R
 import com.sametersoyoglu.kbkisileruygulamasi.databinding.FragmentKisiDetayBinding
@@ -52,6 +54,8 @@ class KisiDetayFragment : Fragment() {
     // kayit eklemede ad ile tel bize yeterli olurken güncellemede id de almamız lazım ek olarak.
     fun buttonGuncelle (kisi_id : Int,kisi_ad : String, kisi_tel :String) {
         viewModel.guncelle(kisi_id,kisi_ad,kisi_tel)
+        val action = KisiDetayFragmentDirections.kisiDetayAnasayfaGecis()
+        findNavController().navigate(action)
     }
 
 }

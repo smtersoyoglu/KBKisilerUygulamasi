@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sametersoyoglu.kbkisileruygulamasi.R
 import com.sametersoyoglu.kbkisileruygulamasi.databinding.FragmentKisiKayitBinding
 import com.sametersoyoglu.kbkisileruygulamasi.ui.viewmodel.KisiKayitViewModel
@@ -46,5 +47,7 @@ class KisiKayitFragment : Fragment() {
 
     fun buttonKaydet(kisi_ad : String, kisi_tel :String) {
         viewModel.kaydet(kisi_ad,kisi_tel)
+        val action = KisiKayitFragmentDirections.kisiKayitAnasayfaGecis()
+        findNavController().navigate(action)
     }
 }

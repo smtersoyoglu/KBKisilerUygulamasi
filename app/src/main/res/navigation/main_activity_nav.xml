@@ -21,7 +21,11 @@
         android:id="@+id/kisiKayitFragment"
         android:name="com.sametersoyoglu.kbkisileruygulamasi.ui.fragment.KisiKayitFragment"
         android:label="fragment_kisi_kayit"
-        tools:layout="@layout/fragment_kisi_kayit" />
+        tools:layout="@layout/fragment_kisi_kayit" >
+        <action
+            android:id="@+id/kisiKayitAnasayfaGecis"
+            app:destination="@id/anasayfaFragment" />
+    </fragment>
     <fragment
         android:id="@+id/kisiDetayFragment"
         android:name="com.sametersoyoglu.kbkisileruygulamasi.ui.fragment.KisiDetayFragment"
@@ -30,5 +34,8 @@
         <argument
             android:name="kisi"
             app:argType="com.sametersoyoglu.kbkisileruygulamasi.data.entity.Kisiler" />
+        <action
+            android:id="@+id/kisiDetayAnasayfaGecis"
+            app:destination="@id/anasayfaFragment" />
     </fragment>
 </navigation>
