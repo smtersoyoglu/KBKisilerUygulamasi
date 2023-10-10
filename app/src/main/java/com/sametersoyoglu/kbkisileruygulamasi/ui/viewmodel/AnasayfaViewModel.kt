@@ -33,18 +33,19 @@ class AnasayfaViewModel @Inject constructor(var kisilerRepository: KisilerReposi
 
     fun kisileriYukle() {
         CoroutineScope(Dispatchers.Main).launch {
-            // bu çalıştığı anda içerisinde veritabanından gelen kişiler olucak LiveData kullanarak yapıyoruz.
-            kisilerListesi.value = kisilerRepository.kisileriYukle()
+            try {// hata olursa kişiler boş gelirse internetten uygulama çökmesin hata versin diye try-catch kullandık.
+                // bu çalıştığı anda içerisinde veritabanından gelen kişiler olucak LiveData kullanarak yapıyoruz.
+                kisilerListesi.value = kisilerRepository.kisileriYukle()
+            }catch (e:Exception){ }
         }
     }
 
     fun ara (aramaKelimesi : String) {
-
         CoroutineScope(Dispatchers.Main).launch {
-            // bu çalıştığı anda içerisinde veritabanından gelen kişiler olucak LiveData kullanarak yapıyoruz.Arama için verileri getirir.
-            kisilerListesi.value = kisilerRepository.ara(aramaKelimesi)
+            try {
+                // bu çalıştığı anda içerisinde veritabanından gelen kişiler olucak LiveData kullanarak yapıyoruz.Arama için verileri getirir.
+                kisilerListesi.value = kisilerRepository.ara(aramaKelimesi)
+            }catch (e:Exception) { }
         }
-
     }
-
 }
