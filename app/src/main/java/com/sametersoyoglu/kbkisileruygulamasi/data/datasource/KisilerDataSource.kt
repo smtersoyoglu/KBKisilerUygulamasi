@@ -2,24 +2,15 @@ package com.sametersoyoglu.kbkisileruygulamasi.data.datasource
 
 import android.util.Log
 import com.sametersoyoglu.kbkisileruygulamasi.data.entity.Kisiler
+import com.sametersoyoglu.kbkisileruygulamasi.retrofit.KisilerDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class KisilerDataSource {
-
+class KisilerDataSource (var kisilerDao: KisilerDao) {
 
     suspend fun kisileriYukle() : List<Kisiler> =
         withContext(Dispatchers.IO) {
-            val kisilerListesi = ArrayList<Kisiler>()
-            val k1 = Kisiler(1,"Ahmet","1111")
-            val k2 = Kisiler(2,"Zeynep","2222")
-            val k3 = Kisiler(3,"Beyza","3333")
-            val k4 = Kisiler(4,"Metin","4444")
-            kisilerListesi.add(k1)
-            kisilerListesi.add(k2)
-            kisilerListesi.add(k3)
-            kisilerListesi.add(k4)
-            return@withContext kisilerListesi
+            return@withContext kisilerDao.kisileriYukle().kisiler
         }
 
     suspend fun ara (aramaKelimesi : String) : List<Kisiler> =
